@@ -1,6 +1,8 @@
 import React from 'react'
 
-const SatSunSpeakers = ({ speakSat, speakSun, handleSat, handleSun }) => (
+const SatSunSpeakers = ({
+  speakersSat, speakersSun, handleChangeSat, handleChangeSun
+}) => (
   <div className="btn-toolbar margintopbottom5 chekbox-bigger">
     <div className="hide">
       <div className="form-check-inline">
@@ -8,8 +10,8 @@ const SatSunSpeakers = ({ speakSat, speakSun, handleSat, handleSun }) => (
           <input
             type="checkbox"
             className="form-check-input"
-            onChange={handleSat}
-            checked={speakSat}
+            onChange={handleChangeSat}
+            checked={speakersSat}
           />
           Saturday Speakers
         </label>
@@ -19,8 +21,8 @@ const SatSunSpeakers = ({ speakSat, speakSun, handleSat, handleSun }) => (
           <input
             type="checkbox"
             className="form-check-input"
-            onChange={handleSun}
-            checked={speakSun}
+            onChange={handleChangeSun}
+            checked={speakersSun}
           />
           Sunday Speakers
         </label>
