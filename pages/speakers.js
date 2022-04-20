@@ -1,8 +1,6 @@
 import React from 'react'
 import App from '../src/App'
 
-const speakers = () => (
-  <App pageName='Speakers' />
-)
-
-export default speakers
+export default function speakers() {
+  return <App pageName='Speakers' />
+}
