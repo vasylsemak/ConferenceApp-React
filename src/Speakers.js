@@ -1,51 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import Header from './Header'
+import React from 'react'
 import Menu from './Menu'
+import Header from './Header'
+import SatSunSpeakers from './SatSunSpeakers'
 import Speaker from './Speaker'
-import speakerData from './data/speaker-data'
+import UseSpeakers from './useHooks/useSpeakers'
 
 const Speakers = () => {
-  const [speakerList, setSpeakerList] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    setIsLoading(true)
-
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve()
-      }, 1500)
-    }).then(() => {
-      setIsLoading(false)
-    })
-
-    setSpeakerList(speakerData)
-
-    return () => {
-      console.log('cleanup from Speakers component')
-    }
-  }, [])
-
-  const heartFavHandler = (e, favValue) => {
-    e.preventDefault()
-    // select clicked speaker by attribute 'data-session-id'
-    const sessionId = parseInt(e.target.attributes['data-sessionid'].value)
-
-    const refinedSpeakerList = speakerList.map(s => s.id === sessionId
-      ? {...s, favorite: favValue}
-      : s
-    )
-    // update speakers state after toggle on heart
-    setSpeakerList(refinedSpeakerList)
-  }
+  const { speakerList, isLoading, heartFavHandler } = UseSpeakers()
 
   return isLoading ? <div>...Loading</div> :
     (<div>
-
       <Menu />
       <Header />
 
       <div className='container'>
+        {/* <SatSunSpeakers
+          speakSat={speakersSat}
+          speakSun={speakersSun}
+          handleSat={handleChangeSat}
+          handleSun={handleChangeSun}
+        /> */}
+
         <div className='row'>
           <div className='card-deck'>
             {speakerList.map(s => (
