@@ -1,8 +1,8 @@
-import React from 'react';
-import App from '../src/App.js';
+import React from 'react'
+import App from '../src/App'
 
-function index() {
-  return <App pageName="Home" />;
-}
+const index = () => (
+  <App pageName='Home' />
+)
 
-export default index;
+export default index
