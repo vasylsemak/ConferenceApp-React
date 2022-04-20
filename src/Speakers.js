@@ -26,6 +26,19 @@ const Speakers = () => {
     }
   }, [])
 
+  const heartFavHandler = (e, favValue) => {
+    e.preventDefault()
+    // select clicked speaker by attribute 'data-session-id'
+    const sessionId = parseInt(e.target.attributes['data-sessionid'].value)
+
+    const refinedSpeakerList = speakerList.map(s => s.id === sessionId
+      ? {...s, favorite: favValue}
+      : s
+    )
+    // update speakers state after toggle on heart
+    setSpeakerList(refinedSpeakerList)
+  }
+
   return isLoading ? <div>...Loading</div> :
     (<div>
 
@@ -36,7 +49,11 @@ const Speakers = () => {
         <div className='row'>
           <div className='card-deck'>
             {speakerList.map(s => (
-              <Speaker key={s.id} {...s} />
+              <Speaker
+                key={s.id}
+                heartFavHandler={heartFavHandler}
+                {...s} 
+              />
             ))}
           </div>
         </div>
