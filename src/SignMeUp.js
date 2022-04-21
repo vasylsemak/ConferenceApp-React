@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const SignMeUp = ({ signupCallback }) => {
   const [email, setEmail] = useState('')
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault()
     signupCallback(email)
     alert('signup confirmed ')

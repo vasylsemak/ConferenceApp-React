@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import {  ConfigContext } from './App'
 import SignMeUp from './SignMeUp'
 
 const Header = () => {
-  const signupCallback = (email) => {
+  const signupCallback = email => {
     return console.log(`sign up called with email ${email}`)
   }
+
+  const { showSignMeUp } = useContext(ConfigContext)
 
   return (
     <div className="jumbotron jumbotronheight">
@@ -19,7 +22,7 @@ const Header = () => {
           </div>
           <h2>Silicon Valley Code Camp</h2>
           <div className="row col-12 text-lg-right">
-            <SignMeUp signupCallback={signupCallback} />
+            {showSignMeUp && <SignMeUp signupCallback={signupCallback} />}
           </div>
         </div>
       </div>
