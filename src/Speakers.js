@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import Menu from './Menu'
 import Header from './Header'
 import SatSunSpeakers from './SatSunSpeakers'
@@ -25,9 +25,13 @@ const Speakers = () => {
     handleChangeSun
   }
 
-  const sortedSpeakers = speakerList.filter(s =>
-    (speakersSat && s.sat) || (speakersSun && s.sun)
+// useMemo will sort speakers once, and then only will sorted based on dependencies array,
+// so sortedSpeakers will be chashed
+  const newList = useMemo(
+    () => speakerList.filter(s => (speakersSat && s.sat) || (speakersSun && s.sun)),
+    [speakerList, speakersSat, speakersSun]
   )
+  const sortedSpeakers = isLoading ? [] : newList
 
   return isLoading 
     ? <div>...Loading</div>

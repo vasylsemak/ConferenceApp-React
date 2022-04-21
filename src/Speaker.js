@@ -1,9 +1,11 @@
 import React from 'react'
 import ImageToggleOnScroll from './ImageToggleOnScroll'
 
-const Speaker = ({
+// wrap Speaker in React.memo() for cashing
+const Speaker = React.memo(({
   id, firstName, lastName, favorite, bio, heartFavHandler
 }) => {
+  console.log(`Speaker => ${lastName}, ${firstName}!`)
 
   return (
     <div className="card col-4 cardmin">
@@ -29,6 +31,6 @@ const Speaker = ({
       </div>
     </div>
   ) 
-}
+})
 
 export default Speaker
