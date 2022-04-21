@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import speakerData from '../data/speaker-data'
+import speakersReducer, { ACTION } from '../reducers/speakersReducer'
 
 
 export default function UseSpeakers() {
-  const [speakerList, setSpeakerList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [speakerList, dispatch] = useReducer(speakersReducer, [])
   
 // Get speakers data simulating API call
   useEffect(() => {
     setIsLoading(true)
     
     new Promise((resolve) => {
-      setTimeout(() => {
-        resolve()
-      }, 1000)
+      setTimeout(() => { resolve() }, 1000)
     }).then(() => {
       setIsLoading(false)
     })
 
-    setSpeakerList(speakerData)
+    dispatch({
+      type: ACTION.setSpeakerList,
+      data: speakerData
+    })
     
-    return () => {
-      console.log('cleanup from Speakers component')
-    }
+    return () => { console.log('cleanup from Speakers component') }
   }, [])
 
 //  Favorite Speaker toggle functionality
@@ -30,13 +30,11 @@ export default function UseSpeakers() {
     e.preventDefault()
     // select clicked speaker by attribute 'data-session-id'
     const sessionId = parseInt(e.target.attributes['data-sessionid'].value)
-    const refinedSpeakerList = speakerList.map(s =>
-      s.id === sessionId
-      ? {...s, favorite: favValue}
-      : s
-    )
-      
-    setSpeakerList(refinedSpeakerList)
+
+    dispatch({
+      type: favValue ? ACTION.favorite : ACTION.unfavorite,
+      sessionId: sessionId
+    })
   }
 
 // results of custom hook
