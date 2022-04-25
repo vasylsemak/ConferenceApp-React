@@ -1,6 +1,7 @@
 import React, { createContext} from 'react'
 import Home from './Home'
 import Speakers from './Speakers'
+import { GlobalProvider } from './GlobalState'
 
 export const ConfigContext = createContext()
 const configVal = { showSignMeUp: true }
@@ -13,7 +14,9 @@ const pageToShow = pageName => (
 
 const App = ({ pageName }) => (
   <ConfigContext.Provider value={configVal}>
-    <>{pageToShow(pageName)}</>
+    <GlobalProvider>
+      <>{pageToShow(pageName)}</>
+    </GlobalProvider>
   </ConfigContext.Provider>
 )
 

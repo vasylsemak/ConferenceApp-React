@@ -1,22 +1,19 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useContext } from 'react'
 import Menu from './Menu'
 import Header from './Header'
 import SatSunSpeakers from './SatSunSpeakers'
 import Speaker from './Speaker'
-import UseSpeakers from './useHooks/UseSpeakers'
+import { GlobalContext } from './GlobalState'
 
 const Speakers = () => {
-  const { 
-    speakerList, 
-    isLoading, 
-    heartFavHandler
-  } = UseSpeakers()
-
   const [speakersSat, setSpeakersSat] = useState(true)
   const [speakersSun, setSpeakersSun] = useState(true)
-
   const handleChangeSat = () => setSpeakersSat(!speakersSat)
   const handleChangeSun = () => setSpeakersSun(!speakersSun)
+
+  const {
+    speakerList, isLoading, heartFavHandler
+  } = useContext(GlobalContext)
 
   const satSunProps = {
     speakersSat,
