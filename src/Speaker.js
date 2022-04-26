@@ -1,16 +1,18 @@
 import React, { useContext } from 'react'
-import { GlobalContext } from './GlobalState'
 import ImageToggleOnScroll from './ImageToggleOnScroll'
+import { FavClickCountContext } from './context/favClickIncrementContext'
 
 // wrap Speaker in React.memo() for cashing
 const Speaker = React.memo((props) => {
   const { id, firstName, lastName, favorite, bio, toggleFavSpeaker } = props
-  const { favClickIncrement } = useContext(GlobalContext)
+  const { favClickIncrement } = useContext(FavClickCountContext)
 
   const handleClick = e => {
     toggleFavSpeaker(e, !favorite)
     favClickIncrement()
   }
+
+  console.log(`Speaker: ${firstName} ${lastName}!`)
 
   return (
     <div className="card col-4 cardmin">
