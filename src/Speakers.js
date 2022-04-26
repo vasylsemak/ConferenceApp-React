@@ -11,9 +11,8 @@ const Speakers = () => {
   const handleChangeSat = () => setSpeakersSat(!speakersSat)
   const handleChangeSun = () => setSpeakersSun(!speakersSun)
 
-  const {
-    speakerList, isLoading, heartFavHandler
-  } = useContext(GlobalContext)
+  const { speakerList, isLoading, toggleFavSpeaker }
+    = useContext(GlobalContext)
 
   const satSunProps = {
     speakersSat,
@@ -25,9 +24,10 @@ const Speakers = () => {
 // useMemo will sort speakers once, and then only will sorted based on dependencies array,
 // so sortedSpeakers will be chashed
   const newList = useMemo(
-    () => speakerList.filter(s => (speakersSat && s.sat) || (speakersSun && s.sun)),
+    () => speakerList.filter(speaker => (speakersSat && speaker.sat) || (speakersSun && speaker.sun)),
     [speakerList, speakersSat, speakersSun]
   )
+
   const sortedSpeakers = isLoading ? [] : newList
 
   return isLoading 
@@ -42,11 +42,11 @@ const Speakers = () => {
 
           <div className='row'>
             <div className='card-deck'>
-              {sortedSpeakers.map(s => (
+              {sortedSpeakers.map(speaker => (
                 <Speaker
-                  key={s.id}
-                  heartFavHandler={heartFavHandler}
-                  {...s} 
+                  key={speaker.id}
+                  toggleFavSpeaker={toggleFavSpeaker}
+                  {...speaker} 
                 />
               ))}
             </div>

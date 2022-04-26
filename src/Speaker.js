@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GlobalContext } from './GlobalState'
 import ImageToggleOnScroll from './ImageToggleOnScroll'
 
 // wrap Speaker in React.memo() for cashing
-const Speaker = React.memo(({
-  id, firstName, lastName, favorite, bio, heartFavHandler
-}) => {
-  console.log(`Speaker => ${lastName}, ${firstName}!`)
+const Speaker = React.memo((props) => {
+  const { id, firstName, lastName, favorite, bio, toggleFavSpeaker } = props
+  const { favClickIncrement } = useContext(GlobalContext)
+
+  const handleClick = e => {
+    toggleFavSpeaker(e, !favorite)
+    favClickIncrement()
+  }
 
   return (
     <div className="card col-4 cardmin">
@@ -21,9 +26,7 @@ const Speaker = React.memo(({
           <button
             data-sessionid={id}
             className={favorite ? 'heartredbutton' : 'heartdarkbutton'}
-            onClick={(e) => {
-              heartFavHandler(e, !favorite)
-            }}
+            onClick={handleClick}
           />
           <span>{firstName} {lastName}</span>
         </h4>

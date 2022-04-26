@@ -3,9 +3,6 @@ import Home from './Home'
 import Speakers from './Speakers'
 import { GlobalProvider } from './GlobalState'
 
-export const ConfigContext = createContext()
-const configVal = { showSignMeUp: true }
-
 const pageToShow = pageName => (
   pageName === 'Home' ? <Home />
   : pageName === 'Speakers' ? <Speakers />
@@ -13,11 +10,9 @@ const pageToShow = pageName => (
 )
 
 const App = ({ pageName }) => (
-  <ConfigContext.Provider value={configVal}>
-    <GlobalProvider>
-      <>{pageToShow(pageName)}</>
-    </GlobalProvider>
-  </ConfigContext.Provider>
+  <GlobalProvider>
+    <>{pageToShow(pageName)}</>
+  </GlobalProvider>
 )
 
 export default App
